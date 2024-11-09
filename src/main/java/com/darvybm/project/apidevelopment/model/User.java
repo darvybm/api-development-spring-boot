@@ -1,0 +1,27 @@
+package com.darvybm.project.apidevelopment.model;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.annotation.Id;
+
+import java.util.List;
+
+@Document(collection = "users")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+public class User {
+
+    @Id
+    private String id;
+
+    private String username;
+    private String password;
+    private String email;
+
+    private List<Review> reviews;
+}
