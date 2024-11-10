@@ -1,31 +1,27 @@
-package com.darvybm.project.apidevelopment.model;
+package com.darvybm.project.apidevelopment.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.darvybm.project.apidevelopment.model.Category;
+import com.darvybm.project.apidevelopment.model.User;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.annotation.Id;
+import lombok.Setter;
 
 import java.util.UUID;
 
-@Document(collection = "products")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class Product {
+@AllArgsConstructor
+public class ProductResponse {
 
-    @Id
     private UUID id;
-
     private String name;
     private String description;
     private Double price;
     private Integer stockQuantity;
     private Boolean isActive;
     private String supplier;
-
     private Category category;
     private User user;
 }
