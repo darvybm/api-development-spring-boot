@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +66,6 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = findById(id);
         try {
             categoryRepository.delete(category);
-
         }catch (Exception e){
             throw new BadRequestException("Error deleting category", e.getMessage());
         }
