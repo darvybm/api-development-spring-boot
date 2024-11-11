@@ -72,7 +72,7 @@ public class RestExceptionHandler {
         for (FieldError error : fieldErrors) {
             messages.append(error.getField()).append(" - ").append(error.getDefaultMessage()).append(". ");
         }
-        return custResponseBuilder.buildResponse(HttpStatus.BAD_REQUEST.value(), messages.toString(), HttpStatus.BAD_REQUEST.getReasonPhrase() );
+        return custResponseBuilder.buildResponse(HttpStatus.BAD_REQUEST.value(), messages.toString(), ex.getMessage() );
     }
 
     @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
@@ -83,7 +83,7 @@ public class RestExceptionHandler {
 
         String message = "Parameter '" + ex.getParameter().getParameterName() + "' must be '"
                 + Objects.requireNonNull(ex.getRequiredType()).getSimpleName() + "'";
-        return custResponseBuilder.buildResponse(HttpStatus.BAD_REQUEST.value(), message, HttpStatus.BAD_REQUEST.getReasonPhrase());
+        return custResponseBuilder.buildResponse(HttpStatus.BAD_REQUEST.value(), message, ex.getMessage());
     }
 
     @ExceptionHandler({ HttpMessageNotReadableException.class })
@@ -93,7 +93,7 @@ public class RestExceptionHandler {
         System.out.println("Paso por HttpMessageNotReadableException: resolveException");
 
         String message = "Please provide Request Body in valid JSON format";
-        return custResponseBuilder.buildResponse(HttpStatus.BAD_REQUEST.value(), message, HttpStatus.BAD_REQUEST.getReasonPhrase());
+        return custResponseBuilder.buildResponse(HttpStatus.BAD_REQUEST.value(), message, ex.getMessage());
     }
     @ExceptionHandler({ MissingServletRequestParameterException.class })
     @ResponseBody

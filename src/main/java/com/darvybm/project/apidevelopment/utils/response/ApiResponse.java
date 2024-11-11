@@ -45,6 +45,7 @@ public class ApiResponse<T> {
         private String message;
         private T data;
         private String extra;
+
         public ApiResponseBuilder(int code){
             this.code = code;
             this.error = (code != 200);

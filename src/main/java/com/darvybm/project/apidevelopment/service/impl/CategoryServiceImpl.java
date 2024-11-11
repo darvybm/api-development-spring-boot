@@ -1,8 +1,7 @@
 package com.darvybm.project.apidevelopment.service.impl;
 
 import com.darvybm.project.apidevelopment.dto.request.CategoryRequest;
-import com.darvybm.project.apidevelopment.exception.BadRequestException;
-import com.darvybm.project.apidevelopment.exception.ResourceNotFoundException;
+import com.darvybm.project.apidevelopment.exception.*;
 import com.darvybm.project.apidevelopment.model.Category;
 import com.darvybm.project.apidevelopment.repository.CategoryRepository;
 import com.darvybm.project.apidevelopment.service.CategoryService;
@@ -21,7 +20,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
     private final CategoryRepository categoryRepository;
     @Autowired
     private ModelMapper modelMapper;
@@ -40,6 +38,7 @@ public class CategoryServiceImpl implements CategoryService {
     public Category save(CategoryRequest categoryRequest) {
         Category category = new Category();
         try {
+            category.setId(UUID.randomUUID());
             modelMapper.map(categoryRequest, category);
             return categoryRepository.save(category);
         }catch (Exception e) {
