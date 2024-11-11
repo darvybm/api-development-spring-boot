@@ -1,5 +1,6 @@
 package com.darvybm.project.apidevelopment.service;
 
+import com.darvybm.project.apidevelopment.dto.request.CategoryRequest;
 import com.darvybm.project.apidevelopment.model.Category;
 
 import java.util.List;
@@ -10,11 +11,11 @@ public interface CategoryService {
 
     List<Category> getAll();
 
-    Optional<Category> getById(UUID id);
+    Category getById(UUID id);
 
-    Category save(Category category);
+    Category save(CategoryRequest categoryRequest);
 
-    Category update(UUID id, Category category);
+    Category update(UUID id, CategoryRequest categoryRequest);
 
     void deleteById(UUID id);
 }
