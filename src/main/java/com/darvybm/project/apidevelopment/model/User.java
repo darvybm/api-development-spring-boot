@@ -1,6 +1,5 @@
 package com.darvybm.project.apidevelopment.model;
 
-import com.darvybm.project.apidevelopment.model.enums.UserRole;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.AllArgsConstructor;
@@ -23,5 +22,5 @@ public class User {
     private String username;
     private String password;
     private String email;
-    private UserRole role;
+    private Boolean deleted = false;
 }

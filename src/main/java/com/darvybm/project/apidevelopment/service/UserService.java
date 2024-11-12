@@ -1,5 +1,6 @@
 package com.darvybm.project.apidevelopment.service;
 
+import com.darvybm.project.apidevelopment.dto.request.UserRequest;
 import com.darvybm.project.apidevelopment.model.User;
 
 import java.util.List;
@@ -10,11 +11,11 @@ public interface UserService {
 
     List<User> getAll();
 
-    Optional<User> getById(UUID id);
+    User getById(UUID id);
 
-    User save(User user);
+    User save(UserRequest userRequest);
 
-    User update(UUID id, User user);
+    User update(UUID id, UserRequest userRequest);
 
     void deleteById(UUID id);
 }

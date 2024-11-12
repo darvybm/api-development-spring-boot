@@ -22,7 +22,6 @@ import java.util.UUID;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
-    @Autowired
     private ModelMapper modelMapper;
 
     @Override

@@ -6,6 +6,7 @@ import com.darvybm.project.apidevelopment.service.CategoryService;
 import com.darvybm.project.apidevelopment.service.impl.CategoryServiceImpl;
 import com.darvybm.project.apidevelopment.utils.response.CustResponseBuilder;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +16,12 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("api/v1/category")
+@RequestMapping("api/v1/categories")
+@RequiredArgsConstructor
 public class CategoryController {
-    @Autowired
-    private CategoryServiceImpl categoryService;
-    @Autowired
-    private CustResponseBuilder custResponseBuilder;
+
+    private final CategoryServiceImpl categoryService;
+    private final CustResponseBuilder custResponseBuilder;
 
     @GetMapping
     public ResponseEntity<?> getAllCategories() {
