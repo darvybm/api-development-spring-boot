@@ -44,13 +44,15 @@ public class UserController {
     @PostMapping
     public ResponseEntity<?> createUser(@Valid @RequestBody UserRequest userRequest) {
         User user = userService.save(userRequest);
-        return custResponseBuilder.ok(user, "User was successfully created");
+        UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+        return custResponseBuilder.ok(userResponse, "User was successfully created");
     }
 
     @PutMapping("/{uuid}")
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserRequest userRequest, @PathVariable UUID uuid) {
         User user = userService.update(uuid, userRequest);
-        return custResponseBuilder.ok(user, "User was successfully updated");
+        UserResponse userResponse = modelMapper.map(user, UserResponse.class);
+        return custResponseBuilder.ok(userResponse, "User was successfully updated");
     }
 
     @DeleteMapping("/{uuid}")

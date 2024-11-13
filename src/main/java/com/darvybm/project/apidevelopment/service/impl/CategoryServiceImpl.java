@@ -31,7 +31,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category getById(UUID id) {
-        return findById(id);
+        return myFindById(id);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(UUID id, CategoryRequest categoryRequest) {
-        Category category = findById(id);
+        Category category = myFindById(id);
 
         try {
             modelMapper.map(categoryRequest, category);
@@ -62,7 +62,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteById(UUID id) {
-        Category category = findById(id);
+        Category category = myFindById(id);
         try {
             categoryRepository.delete(category);
         }catch (Exception e){
@@ -70,7 +70,8 @@ public class CategoryServiceImpl implements CategoryService {
         }
     }
 
-    private Category findById(UUID id) {
-        return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Category", "id", id));
+    private Category myFindById(UUID id) {
+        return categoryRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(Category.class.getSimpleName(), "id", id));
     }
+
 }
