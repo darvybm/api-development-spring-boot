@@ -10,6 +10,11 @@ import com.darvybm.project.apidevelopment.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,10 +25,11 @@ import java.util.UUID;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public List<User> getAll() {
@@ -37,9 +43,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User save(UserRequest userRequest) {
+
+        if (userRepository.existsByUsername(userRequest.getUsername())) {
+            throw new BadRequestException("Username already exists.", "The provided username is already in use.");
+        }
+
         try {
             User user = modelMapper.map(userRequest, User.class);
             user.setId(UUID.randomUUID());
+            user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
             return userRepository.save(user);
         } catch (Exception e) {
             throw new BadRequestException("Error saving user", e.getMessage());
@@ -72,5 +84,10 @@ public class UserServiceImpl implements UserService {
     private User myFindById(UUID id) {
         return userRepository.findByIdAndDeletedFalse(id)
                 .orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "id", id));
+    }
+
+    @Override
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username);
     }
 }

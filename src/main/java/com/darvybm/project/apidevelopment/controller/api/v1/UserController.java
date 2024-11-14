@@ -27,13 +27,6 @@ public class UserController {
     private final CustResponseBuilder custResponseBuilder;
     private final ModelMapper modelMapper;
 
-    @GetMapping
-    public ResponseEntity<?> getAllUsers() {
-        List<User> users = userService.getAll();
-        List<UserResponse> userResponses = Arrays.asList(modelMapper.map(users, UserResponse[].class));
-        return custResponseBuilder.ok(userResponses);
-    }
-
     @GetMapping("/{uuid}")
     public ResponseEntity<?> getUserById(@PathVariable UUID uuid) {
         User user = userService.getById(uuid);
