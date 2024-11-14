@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,9 +41,7 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<?> getAllProducts() {
         List<Product> products = productService.getAll();
-        List<ProductResponse> productResponses = products.stream()
-                .map(product -> modelMapper.map(product, ProductResponse.class))
-                .toList();
+        List<ProductResponse> productResponses = Arrays.asList(modelMapper.map(products, ProductResponse[].class));
         return custResponseBuilder.ok(productResponses);
     }
 
