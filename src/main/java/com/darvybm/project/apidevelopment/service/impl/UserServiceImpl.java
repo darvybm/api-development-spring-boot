@@ -32,8 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(UUID id) {
-        return userRepository.findByIdAndDeletedFalse(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+        return findById(id);
     }
 
     @Override

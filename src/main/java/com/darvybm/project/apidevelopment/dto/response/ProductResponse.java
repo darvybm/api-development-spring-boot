@@ -23,5 +23,4 @@ public class ProductResponse {
     private Boolean isActive;
     private String supplier;
     private Category category;
-    private User user;
 }

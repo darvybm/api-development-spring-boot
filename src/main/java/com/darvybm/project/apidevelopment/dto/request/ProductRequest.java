@@ -35,7 +35,4 @@ public class ProductRequest {
 
     @NotBlank(message = "Category ID is required")
     private String categoryId;
-
-    @NotBlank(message = "User ID is required")
-    private String userId;
 }

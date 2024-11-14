@@ -25,7 +25,6 @@ public class Product {
     private Integer stockQuantity;
     private Boolean isActive;
     private String supplier;
-
     private Category category;
-    private User user;
+    private Boolean deleted = false;
 }
