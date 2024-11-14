@@ -47,8 +47,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(UUID id, ProductRequest productRequest) {
+        Product product = findById(id);
         try {
-            Product product = findById(id);
             modelMapper.map(productRequest, product);
             product.setCategory(categoryService.getById(UUID.fromString(productRequest.getCategoryId())));
             return productRepository.save(product);
@@ -59,8 +59,8 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(UUID id) {
+        Product product = findById(id);
         try {
-            Product product = findById(id);
             product.setDeleted(true);
             productRepository.save(product);
         } catch (Exception e) {
@@ -69,8 +69,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private Product findById(UUID id) {
-        return productRepository.findById(id)
-                .filter(product -> !product.getDeleted())
-                .orElseThrow(() -> new ResourceNotFoundException("Product", "id", id));
+        return productRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException(Product.class.getSimpleName(), "id", id));
     }
 }
