@@ -60,8 +60,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public User update(UUID id, UserRequest userRequest) {
+        User user = myFindById(id);
         try {
-            User user = myFindById(id);
             modelMapper.map(userRequest, user);
             user.setId(id);
             return userRepository.save(user);
@@ -72,8 +72,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public void deleteById(UUID id) {
+        User user = myFindById(id);
         try {
-            User user = myFindById(id);
             user.setDeleted(true);
             userRepository.save(user);
         } catch (Exception e) {

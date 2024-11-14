@@ -7,6 +7,7 @@ import com.darvybm.project.apidevelopment.utils.response.CustResponseBuilder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
@@ -113,6 +114,16 @@ public class RestExceptionHandler {
 
         return custResponseBuilder.buildResponse(HttpStatus.INTERNAL_SERVER_ERROR.value(), ex.getMessage(), ex.getCause().getMessage());
     }
+
+    @ExceptionHandler({UsernameNotFoundException.class})
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> resolveException(UsernameNotFoundException ex) {
+        System.out.println("Paso por UsernameNotFoundException: resolveException");
+
+        return custResponseBuilder.buildResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), ex.getCause().getMessage());
+    }
+
     @ExceptionHandler({ UserErrorException.class })
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
