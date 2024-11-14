@@ -1,6 +1,5 @@
 package com.darvybm.project.apidevelopment.service;
 
-import com.darvybm.project.apidevelopment.dto.request.ProductRequest;
 import com.darvybm.project.apidevelopment.model.Product;
 
 import java.util.List;

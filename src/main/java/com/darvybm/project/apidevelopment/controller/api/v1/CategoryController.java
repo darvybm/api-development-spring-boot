@@ -46,4 +46,10 @@ public class CategoryController {
         Category category = categoryService.update(uuid, categoryRequest);
         return custResponseBuilder.ok(category, "The category was successfully updated");
     }
+
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<?> deleteCategory(@PathVariable UUID uuid) {
+        categoryService.deleteById(uuid);
+        return custResponseBuilder.ok(null, "User was successfully deleted");
+    }
 }

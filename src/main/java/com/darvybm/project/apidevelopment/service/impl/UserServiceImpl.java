@@ -32,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getById(UUID id) {
-        return findById(id);
+        return myFindById(id);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User update(UUID id, UserRequest userRequest) {
         try {
-            User user = findById(id);
+            User user = myFindById(id);
             modelMapper.map(userRequest, user);
             user.setId(id);
             return userRepository.save(user);
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(UUID id) {
         try {
-            User user = findById(id);
+            User user = myFindById(id);
             user.setDeleted(true);
             userRepository.save(user);
         } catch (Exception e) {
@@ -69,9 +69,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    private User findById(UUID id) {
-        return userRepository.findById(id)
-                .filter(user -> !user.getDeleted())
-                .orElseThrow(() -> new ResourceNotFoundException("User", "id", id));
+    private User myFindById(UUID id) {
+        return userRepository.findByIdAndDeletedFalse(id)
+                .orElseThrow(() -> new ResourceNotFoundException(User.class.getSimpleName(), "id", id));
     }
 }

@@ -1,6 +1,7 @@
 package com.darvybm.project.apidevelopment.service;
 
 import com.darvybm.project.apidevelopment.dto.request.UserRequest;
+import com.darvybm.project.apidevelopment.model.Category;
 import com.darvybm.project.apidevelopment.model.User;
 
 import java.util.List;
